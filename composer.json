@@ -1,0 +1,14 @@
+{
+    "name": "mquinn/currency-captain",
+    "description": "A simply way to handle currency.",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Mitchell Quinn",
+            "email": "mdq2@live.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "require-dev": {}
+}
