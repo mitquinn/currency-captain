@@ -11,7 +11,13 @@ interface ProviderInterface
     /**
      * @param string $from
      * @param string $to
-     * @return float
+     * @return float|null
      */
-    public function convert(string $from, string $to) : float;
+    public function getConversionRate(string $from, string $to) : ?float;
+
+    /**
+     * @return array
+     */
+    public function getCurrencyList() : array;
+
 }

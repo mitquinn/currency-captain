@@ -10,20 +10,24 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "symfony/cache": "^3.3",
+        "php" : "^7.2",
+        "ext-intl" : "*",
+        "symfony/cache": "^4.0",
         "psr/log": "^1.0",
         "psr/http-message": "^1.0",
         "php-http/httplug": "^1.1",
         "php-http/message-factory": "^1.0",
-        "php-http/discovery": "^1.3"
+        "php-http/discovery": "^1.3",
+        "alcohol/iso4217": "^3.1"
 
     },
     "require-dev": {
         "phpunit/phpunit": "^6.4",
         "monolog/monolog": "^1.23",
-        "php-http/mock-client": "^1.0",
+        "php-http/mock-client": "^1.1",
         "php-http/message": "^1.6",
-        "guzzlehttp/psr7": "^1.4"
+        "guzzlehttp/psr7": "^1.4",
+        "php-http/guzzle6-adapter": "^1.1"
 
     },
     "autoload": {
