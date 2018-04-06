@@ -13,6 +13,8 @@ use Currency\Captain\Providers\ProviderInterface;
 
 /**
  * Class ConverterTest
+ * @package Tests\Currency\Captain
+ * @group Converter
  */
 class ConverterTest extends TestCase
 {
@@ -178,7 +180,7 @@ class ConverterTest extends TestCase
      * @throws \Psr\SimpleCache\InvalidArgumentException
      * @dataProvider countryCurrencyProvider
      */
-    public function testGetCurrencyByCountryCode(string $countryCode,    $currencyName)
+    public function testGetCurrencyByCountryCode(string $countryCode, ?string $currencyName)
     {
         $result = $this->getConverter()->getCurrencyByCountryCode($countryCode);
         static::assertEquals($currencyName, $result);
@@ -208,7 +210,7 @@ class ConverterTest extends TestCase
      * Tests for getCurrencySymbol.
      * @dataProvider currencySymbolProvider
      */
-    public function testGetCurrencySymbol(string $alpha3, $locale, string $symbol)
+    public function testGetCurrencySymbol(string $alpha3, ?string $locale, string $symbol)
     {
         $result = $this->getConverter()->getCurrencySymbolByAlpha3($alpha3, $locale);
         static::assertEquals($symbol, $result);
@@ -239,7 +241,7 @@ class ConverterTest extends TestCase
      * @throws \Psr\SimpleCache\InvalidArgumentException
      * @dataProvider countrySymbolProvider
      */
-    public function testGetCurrencySymbolByCountryCode(string $countryCode, $locale, string $symbol)
+    public function testGetCurrencySymbolByCountryCode(string $countryCode, ?string $locale, string $symbol)
     {
         $result = $this->getConverter()->getCurrencySymbolByCountryCode($countryCode, $locale);
         static::assertEquals($symbol, $result);
@@ -267,7 +269,7 @@ class ConverterTest extends TestCase
      * @param string $symbol
      * @dataProvider currencySymbolProvider
      */
-    public function testGetCurrencySymbolByAlpha3(string $alpha3, $locale, string $symbol)
+    public function testGetCurrencySymbolByAlpha3(string $alpha3, ?string $locale, string $symbol)
     {
         $result = $this->getConverter()->getCurrencySymbolByAlpha3($alpha3, $locale);
         static::assertEquals($symbol, $result);

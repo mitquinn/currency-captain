@@ -2,7 +2,6 @@
 
 namespace Currency\Captain\Providers;
 
-use Http\Discovery\HttpClientDiscovery;
 use Monolog\Logger;
 use Http\Client\HttpClient;
 use GuzzleHttp\Psr7\Request;
@@ -15,6 +14,8 @@ use Currency\Captain\Traits\HasHttpClient;
 /**
  * Class Fixerio
  * @package Currency\Captain\Providers
+ * @see https://fixer.io/
+ * @todo Fixer.io has upgraded there API. Must upgrade provider to new API endpoints.
  */
 class Fixerio implements ProviderInterface
 {
@@ -29,7 +30,7 @@ class Fixerio implements ProviderInterface
      * @param LoggerInterface|null $logger
      * @param HttpClient|null $client
      */
-    public function __construct(LoggerInterface $logger = null, HttpClient $client = null)
+    public function __construct(?LoggerInterface $logger = null, ?HttpClient $client = null)
     {
         if (is_null($logger)) {
             $logger = new Logger('Currency_Captain_Fixerio');
@@ -37,7 +38,7 @@ class Fixerio implements ProviderInterface
         $this->setLogger($logger);
 
         if (is_null($client)) {
-            $client = HttpClientDiscovery::find();
+            $client = $this->getClient();
         }
         $this->setClient($client);
     }
@@ -47,6 +48,7 @@ class Fixerio implements ProviderInterface
      * @param string $from Base currency for conversion.
      * @param string $to Target currency for conversion.
      * @return float|null Conversion rate for the base to target currency.
+     * @throws \Http\Client\Exception
      */
     public function getConversionRate(string $from, string $to) : ?float
     {
@@ -69,11 +71,12 @@ class Fixerio implements ProviderInterface
      * Returns a pseudo currency list.
      * Fixerio does not seem to have an endpoint for a full currency list.
      * @return array
+     * @throws \Http\Client\Exception
      */
     public function getCurrencyList() : array
     {
         $currencyList = array();
-        $endpoint = "https://api.fixer.io/latest?base=EUR";
+        $endpoint = "https://api.fixer.io/latest?base=USD";
         $request = new Request('GET', $endpoint);
         try {
             $response = $this->getClient()->sendRequest($request);
@@ -105,7 +108,7 @@ class Fixerio implements ProviderInterface
     }
 
     /**
-     * Parses the Fixerio list building a list of currency ccy. Also manually adds EUR.
+ * Parses the Fixerio list building a list of currency ccy. Also manually adds EUR.
      * @param ResponseInterface $response
      * @return array
      * @throws \Exception
@@ -116,7 +119,7 @@ class Fixerio implements ProviderInterface
         $decoded = json_decode($contents);
         if (isset($decoded->rates)) {
             $currencyList = array_keys((array)$decoded->rates);
-            $currencyList[] = 'EUR';
+            $currencyList[] = 'USD';
             return $currencyList;
         }
         throw new \Exception('Fixerio - Rates not found.');

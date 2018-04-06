@@ -216,7 +216,7 @@ class Converter
      * @return null|string
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function getCurrencySymbolByAlpha3(string $alpha3, string $locale = null) : ?string
+    public function getCurrencySymbolByAlpha3(string $alpha3, ?string $locale = null) : ?string
     {
         if (is_null($locale)) {
             $locale = $this->getLocale();
@@ -237,11 +237,11 @@ class Converter
 
     /**
      * @param string $countryCode
-     * @param null $locale
+     * @param string|null $locale
      * @return null|string
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function getCurrencySymbolByCountryCode(string $countryCode, string $locale = null) : ?string
+    public function getCurrencySymbolByCountryCode(string $countryCode, ?string $locale = null) : ?string
     {
         $alpha3 = $this->getAlpha3ByCountryCode($countryCode);
         return $this->getCurrencySymbolByAlpha3($alpha3, $locale);

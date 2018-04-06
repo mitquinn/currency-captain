@@ -11,6 +11,7 @@ use Currency\Captain\Providers\Fixerio;
 /**
  * Class FixerioTest
  * @package Tests\Currency\Captain\Providers
+ * @group Fixerio
  */
 class FixerioTest extends TestCase
 {

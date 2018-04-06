@@ -16,6 +16,7 @@ interface ProviderInterface
     public function getConversionRate(string $from, string $to) : ?float;
 
     /**
+     * The base currency must be USD.
      * @return array
      */
     public function getCurrencyList() : array;
